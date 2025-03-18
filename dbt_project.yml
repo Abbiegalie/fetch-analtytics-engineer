@@ -25,3 +25,7 @@ models:
       +tags:
         - staging
         - stg
+
+seeds:
+  fetch_analytics:
+    +schema: seeds
