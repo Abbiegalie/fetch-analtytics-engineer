@@ -95,10 +95,10 @@ order by
 
 After analyzing the data, I identified several key issues that impact the quality and reliability of our insights:
 
-    1. High Rate of Missing Barcodes:
-    The majority of scanned receipts are null barcodes (55.48%) within staging_receipt_items which affects the joins between receipt items and brands impacting our ability to join with brand data and provide brand_name matches. Hence, brand analysis is limited as well as the insights we can derive from the data overall. 
+High Rate of Missing Barcodes:
+The majority of scanned receipts are null barcodes (55.48%) within staging_receipt_items which affects the joins between receipt items and brands impacting our ability to join with brand data and provide brand_name matches. Hence, brand analysis is limited as well as the insights we can derive from the data overall. 
     
-    ```sql
+```sql
     with total_counts as (
         select
             count(*) as total_rows
@@ -119,12 +119,12 @@ After analyzing the data, I identified several key issues that impact the qualit
         round((null_barcode_count * 100.0 / total_rows), 2) as percent_null_barcode,
         round((non_null_barcode_count * 100.0 / total_rows), 2) as percent_non_null_barcode
     from total_counts, barcode_counts;
-    ```
+```
 
-    2. Missing User Ids:
-    Around 1/3 of the user ids in staging_users are missing in staging_receipts which further limites our scope of synthesizing user metrics.
+Missing User Ids:
+Around 1/3 of the user ids in staging_users are missing in staging_receipts which further limites our scope of synthesizing user metrics.
 
-    ```sql
+```sql
             with 
             -- Count of distinct user_ids in staging_users
             distinct_users_in_staging_users as (
@@ -148,18 +148,18 @@ After analyzing the data, I identified several key issues that impact the qualit
             distinct_user_ids_in_staging_users,
             distinct_user_ids_not_in_receipts
         from distinct_users_in_staging_users, distinct_users_not_in_receipts;
-    ```
+```
 
-    3. Brand Code Strings Unclear:
+Brand Code Strings Unclear:
     Within the brand_code field in staging_brands there are 234 null brand_codes and 35 blank records, furthermore there are many brand codes labeled TEST which may not be ideal in a prod database that should be optimized from clutter .
 
-    ```sql
+```sql
             select distinct(brand_code) as brand, count(*) as brand_count
             from raw.public_staging.staging_brands
             group by brand
             order by brand_count desc
             ;
-    ```
+ ```
 ## Communicate with Stakeholders
 
 Hi Team!
@@ -173,4 +173,3 @@ I had some questions regarding the data, and wanted to know who would best be ab
 
 
 Happy to chat further regarding some of the other data concerns I noticed upon my initial review, please feel free to reach out!
-# fetch-analtytics-engineer
