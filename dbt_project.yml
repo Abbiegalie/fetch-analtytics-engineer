@@ -1,0 +1,27 @@
+name: 'fetch_analytics'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+model-paths: [ "models" ]
+analysis-paths: [ "analyses" ]
+test-paths: [ "tests" ]
+seed-paths: [ "seeds" ]
+
+models:
+  fetch_analytics:
+    marts:
+      +materialized: table
+      +tags: marts
+      reporting:
+        +schema: reporting
+        +tags:
+          - reporting
+          - reports
+    staging:
+      +materialized: table
+      +schema: staging
+      +tags:
+        - staging
+        - stg

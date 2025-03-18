@@ -1,0 +1,13 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: QSZOMOI-AR34043 # e.g., xy12345.us-east-1
+      user: Abbiegalie
+      password: abby14TXVArichter
+      role: ACCOUNTADMIN # e.g., SYSADMIN
+      database: RAW
+      warehouse: COMPUTE_WH # e.g., COMPUTE_WH
+      schema: PUBLIC # e.g., PUBLIC
+      threads: 4 # Number of threads for parallel execution
